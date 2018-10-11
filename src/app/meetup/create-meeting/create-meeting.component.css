@@ -1,0 +1,58 @@
+img{
+    height: 50px;
+}
+.userbutton {
+   
+  background-color : #17a2b8;
+}
+
+.userbutton:hover{
+    cursor: pointer;
+}
+.editicon{
+    position: fixed;
+right: 8%;
+top: 10%;
+}
+
+.anyClass {
+    height:85vh;
+    overflow-y: scroll;
+  }
+
+  .dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+.widthColor{
+    width: 100%;
+    text-align: center;
+}
+.dropdown-menu{
+    background-color: AliceBlue ;
+}
+
+.dropdown{
+    right: 8%;
+}
+.textsize{
+    font-size: 1rem;
+}
+@media only screen and (max-width: 600px) {
+    .maxwidth {
+      width: 95%;
+    }
+    .dropdown-menu{
+      width: 100%;
+
+    }
+  }
+
+
+.anyClass {
+    height:83vh;
+    overflow-y: scroll;
+  }

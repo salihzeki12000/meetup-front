@@ -1,0 +1,93 @@
+img{
+    height: 50px;
+}
+
+.navcolor{
+    color: green
+}
+
+
+h3 {
+ margin: 0 0 10px;
+}
+
+pre {
+ background-color: #f5f5f5;
+ padding: 15px;
+}
+
+p {
+    border-left: 10px solid blue;
+    background-color: #ddffff;
+}
+
+.userbutton {
+    border-radius: 25px; 
+  height: 2rem;
+  background-color : #17a2b8;
+}
+
+.userbutton:hover{
+    cursor: pointer;
+}
+
+.card-body {
+  flex: 1 2 auto;
+  padding: 0.25rem;
+  text-align: center;
+} 
+
+.addicon{
+position: fixed;
+right: 8%;
+bottom: 5%;
+}
+
+.clearSelection{
+    position: fixed;
+    right: 3%;
+    bottom: 5%; 
+}
+
+.anyClass {
+    height:83vh;
+    overflow-y: scroll;
+  }
+
+  .dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+.widthColor{
+    width: 100%;
+    text-align: center;
+}
+.dropdown-menu{
+    background-color: AliceBlue ;
+}
+
+.dropdown{
+    right: 8%;
+}
+
+@media only screen and (max-width: 768px) {
+    .maxwidth {
+      width: 95%;
+    }
+    .dropdown-menu{
+      width: 100%;
+
+    }
+    .dropdown{
+        left: 0%;
+    }
+  }
+
+  @media only screen and (max-width: 300px) {
+    .dropdown{
+        left: 0%;
+    }
+  }

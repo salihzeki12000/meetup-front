@@ -1,0 +1,127 @@
+<div class="bg">
+
+<nav class="navbar navbar-expand-md">
+
+  <a class="navbar-brand" href="/">
+    <img src="/assets/images/meeting.png">
+    MeetUP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+
+    <span class="navbar-toggler-icon"></span>
+
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+
+        <a class="nav-link" (click)="goToSignIn()">Sign-In</a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+
+
+<div class="row">
+
+
+  <div class="col-md-3">
+  </div>
+<div class="col-md-6">
+  
+    <br>
+    <mat-form-field class="col-12 col-md-8 offset-1 example-right-align">
+        <input matInput name="FirstName" placeholder="First Name" [(ngModel)]="firstName"   minlength="4" required autofocus>
+      </mat-form-field>
+    
+      
+<br>
+
+<mat-form-field class="col-12 col-md-8 offset-1">
+    <input matInput name="lastName" placeholder="Last Name" [(ngModel)]="lastName"  minlength="3" required >
+  </mat-form-field>
+
+  
+
+   
+    <br>
+
+    
+    <mat-form-field class="col-12 col-md-8 offset-1"> 
+        <mat-select placeholder="Country" name="select" [(ngModel)]="country" required>
+          <mat-option *ngFor="let country of data" [value]="country.callingCodes" >
+            {{ country.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    <br>
+
+    <mat-form-field class="col-12 col-md-8 offset-1 example-right-align">
+     <br>
+     <div *ngIf="country">
+        <span matPrefix> +{{country}}</span>
+    </div> 
+   
+   <input matInput name="mobileNumber" placeholder="Mobile Number" type="number"  minlength="10"   maxlength="10" [(ngModel)]="mobileNumber" required >
+
+   
+    
+      </mat-form-field>
+    
+      
+  
+
+    <br>
+
+
+    <mat-form-field class="col-12 col-md-8 offset-1">
+        <input matInput name="email" placeholder="Email Address" [(ngModel)]="email" required >
+      </mat-form-field>
+
+  
+    <br>
+
+
+    <mat-form-field class="col-12 col-md-8 offset-1">
+        <input  type="password" matInput name="password" placeholder="Password" [(ngModel)]="password" required  minlength="6" >
+      </mat-form-field>
+     
+      <br>
+    
+  
+      <mat-slide-toggle class="col-12 col-md-8 offset-1"[(ngModel)]="adminseciton"  (change)="onChange($event)" >
+        <span *ngIf="!isAdmin">Are you Sure ? You are Requesting for Admin Previllage</span>
+        <span *ngIf="isAdmin">Need Admin Privillage</span>
+        
+      </mat-slide-toggle>
+      <br>
+
+   
+    <br>
+    
+<br>
+
+
+    <button class="btn btn-lg btn-outline-primary btn-block" type="button" (click)="signUpFunction()">Sign Up</button>
+
+  </div>
+
+  <div class="com-md-3">
+
+  </div>
+
+  <div class="col-sm"></div>
+
+</div>
+
+</div>

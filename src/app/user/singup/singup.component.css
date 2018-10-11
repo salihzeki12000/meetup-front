@@ -1,0 +1,49 @@
+img{
+    height: 50px;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  
+  .example-right-align {
+    text-align: left;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+  
+
+
+  .example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+
+  /** No CSS for this example */
+.mat-input-underline {
+   color:white
+    
+    
+    
+}
+
+mat-focused 
+.mat-form-field-label{ color: #ee6e73; } 
+.mat-focused .mat-form-field-underline 
+.mat-form-field-ripple{ background: #ee6e73; }

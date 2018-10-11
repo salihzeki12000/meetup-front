@@ -1,0 +1,210 @@
+<!--<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand" href="/meet"> <img src="/src/meeting.png">MeetUP</a>
+  <button class="btn btn-outline-danger my-2 my-sm-0" (click)="goToLogout()">Logout</button>
+  
+</nav> -->
+
+
+
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/meet"> <img src="/assets/images/meeting.png">MeetUP</a> 
+  
+  <div *ngIf="userInfo.admin">
+      Welcome to Admin Portal @<b> {{userInfo.userName}}</b>
+
+  </div>
+  <div *ngIf="!userInfo.admin">
+      Welcome to Planning Portal @<b> {{userInfo.userName}}</b>
+
+  </div>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <div class="dropdown">
+            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-outline-primary my-2 my-sm-0 maxwidth">{{userInfo.firstName}} &nbsp; {{userInfo.lastName}} </button>
+              </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item">
+                  <button class="btn btn-info widthColor" (click)="goToProfile()">Profile Settings</button>
+               
+                </a>
+              <a class="dropdown-item">
+                  <button class="btn btn-info my-2 my-sm-0 widthColor" (click)="goToUpdatePassword()">Update Password</button>
+               
+                </a>
+              <div class="dropdown-divider"></div>
+ 
+              <a class="dropdown-item">
+              <button class="btn btn-outline-danger my-2 my-sm-0 widthColor" (click)="goToLogout()">Logout</button>
+                
+              </a>
+            </div>
+          </div>
+      </div>
+    </nav>
+
+    <div class="loading" *ngIf = "display" >
+       
+
+      <app-spring-spinner 
+  [animationDuration]="2000"
+  [size]="150"
+  [color]="'#0000FF'"
+></app-spring-spinner>
+    
+    </div>
+
+<div class="container-fluid" *ngIf="!display">
+  <div class="row">
+     
+    <div class="col-md-3 anyClass">
+      <div id="dashboard">
+        <div>
+          <div id="meetingDashboard">
+            <h5 class="mb-0">
+              <button class="btn btn-lg btn-primary btn-block" data-toggle="collapse" data-target="#meeting"
+                aria-expanded="true" aria-controls="meeting" *ngIf="upCommingMeeting">
+                Meeting Dashboard <span class="badge badge-light"> &nbsp;&nbsp;{{upCommingMeeting.length}}</span>
+              </button>
+            </h5>
+          </div>
+          <div id="meeting" class="collapse show" aria-labelledby="meetingDashboard" data-parent="#dashboard">
+            <div *ngFor="let meeting of upCommingMeeting">
+              <br>
+              <div class="card text-white userbutton" *ngIf="!this.userInfo.admin && this.userInfo.userId == meeting.participentId" [ngClass]="{'bg-success': meetingSelect == meeting.meetingId}" (click)="getMeetinginDashboard(meeting.meetingId)">
+                <div class="card-body"> 
+                  {{meeting.meetingSubject | uppercase}} on {{meeting.meetingStartDate | date }} </div>
+              </div>
+              <div class="card text-white userbutton" *ngIf="this.userInfo.admin" [ngClass]="{'bg-success': meetingSelect == meeting.meetingId}" (click)="getMeetinginDashboard(meeting.meetingId)">
+                  <div class="card-body"> 
+                    {{meeting.meetingSubject | uppercase}} on {{meeting.meetingStartDate | date }} </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div *ngIf="admin">
+          <div id="usersdashboard">
+            <h5 class="mb-0">
+              <button class="btn btn-lg btn-primary btn-block collapsed" data-toggle="collapse" data-target="#users"
+                aria-expanded="false" aria-controls="users">
+                Users Dashboard  <span class="badge badge-light" *ngIf="allUsers" > &nbsp;&nbsp;  {{allUsers.length - 1}}</span>
+
+              </button>
+            </h5>
+          </div>
+          <div id="users" class="collapse" aria-labelledby="usersdashboard" data-parent="#dashboard">
+            <div *ngFor="let user of allUsers">
+              <br>
+              <div class="card text-white userbutton" *ngIf="user.userId!=userInfo.userId"
+               [ngClass]="{'bg-success': userSelect == user.userId}"
+                (click)="userSelected($event,user.userId)">
+                <div class="card-body"> 
+                  {{user.firstName | uppercase}} {{user.lastName | uppercase}}
+                </div>
+              </div>
+            </div>
+            <br>
+         
+          </div>
+        </div>
+        <br>
+        <div>
+          <div id="usercompleted">
+            <h5 class="mb-0">
+              <button class="btn btn-lg btn-primary btn-block collapsed" data-toggle="collapse" data-target="#meetingCompleted"
+                aria-expanded="false" aria-controls="meetingCompleted">
+                <div *ngIf="completedMeeting">
+                    Completed Meeting <span class="badge badge-light"> &nbsp;{{completedMeeting.length}}</span>
+                </div>
+              </button>
+            </h5>
+          </div>
+          
+          <div id="meetingCompleted" class="collapse" aria-labelledby="usercompleted" data-parent="#dashboard" >
+            <div *ngFor="let completedmeet of completedMeeting">
+              <br>
+              <div class="card text-white userbutton" [ngClass]="{'bg-success': meetingCompletedSelect == completedmeet.meetingId}" (click)="getCompletedMeetinginDashboard(completedmeet.meetingId)">
+                <div class="card-body"> 
+                    {{completedmeet.meetingSubject | uppercase}} on {{completedmeet.meetingStartDate | date }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="meetingCompleted" class="collapse" aria-labelledby="usercompleted" data-parent="#dashboard" *ngIf="completedMeeting.length ==0" >
+              <div>
+                <br>
+                <div class="card  userbutton" [ngClass]="'bg-success'" >
+                  <div class="card-body"> 
+                   No Meeting Completed
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div *ngIf="events.length >0">
+            <app-calender [events]="events" (meetingDetails)='detailfromCalender($event)' (meetingPlan)= 'meetingPlan($event)'></app-calender>
+      </div>
+      <div *ngIf="events.length ==0">
+          <app-calender [events]=""></app-calender>
+    </div>
+    
+      <div class="addicon" *ngIf="addMeeting">
+          <a class="navbar-brand" href="/meet/{{userSelect}}/create/{{meetingPlanDate}}"> <img src="/assets/images/addmeeting.png"></a>
+      </div>
+      <div class="clearSelection" *ngIf="clearSelection">
+          <a class="navbar-brand" (click)="clear()"> <img src="/assets/images/clearSelection.png"></a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- model-->
+
+<div class="backdrop" [ngStyle]="{'display':model}"></div>
+
+<!-- modal -->
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':model}">
+  <!-- modal-dialog -->
+  <div class="modal-dialog" role="document">
+    <!-- modal-content -->
+    <div class="modal-content">
+      <!-- modal-header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Login</h4> -->
+        Your Meeting is about to Start. Find Meeting Details 
+      </div>
+
+      <!-- modal-body -->
+      <div class="modal-body">
+        <h2>Meeting Details</h2>
+        <div *ngFor="let meet of remainderList">
+         Time: {{meet.meetingStartDate}} Meeting Host: {{meet.remainderHost}} --  Meeting Location: {{meet.Location}} -- Meeting Details:{{meet.meetingDetails}}<br>
+         <hr>
+        </div>
+        
+
+      </div>
+
+      <!-- modal-footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="Snooze()" >Snooze for 1 Min</button>
+        <button type="button" class="btn btn-outline-danger" (click)="closeModalDialog()" >Dismiss</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
